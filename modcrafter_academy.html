@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModCrafter Academy: The Minecraft Developer's Fan Portal</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        stoneDark: '#1a1816',
+                        stonePanel: '#262320',
+                        stoneBorder: '#3d3833',
+                        dirtAccent: '#4a3525',
+                        oakWood: '#61432b',
+                        parchmentBg: '#f7f2e7',
+                        parchmentCard: '#fffdf6',
+                        emeraldGlow: '#10b981',
+                        emeraldHover: '#10b981',
+                        goldAccent: '#f59e0b',
+                        codeBg: '#121110',
+                        codeHeader: '#1e1c1a'
+                    },
+                    fontFamily: {
+                        pixel: ['"VT323"', 'monospace'],
+                        code: ['"Fira Code"', 'monospace'],
+                        sans: ['"Inter"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=VT323&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS Embed -->
+    <style>
+        body {
+            background-color: #1a1816;
+            color: #e5e1dc;
+            font-family: 'Inter', sans-serif;
+            background-image: radial-gradient(#332e29 0.75px, transparent 0.75px);
+            background-size: 16px 16px;
+        }
+
+        /* Custom Pixelated & Dark Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121110;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border: 2px solid #121110;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #059669;
+        }
+
+        /* Border Styles */
+        .wood-border {
+            border: 3px solid #61432b;
+            box-shadow: 0 4px 0 #3d281a;
+        }
+
+        .emerald-border {
+            border: 2px solid #10b981;
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.2);
+        }
+
+        .dev-card {
+            background: #262320;
+            border: 1px solid #3d3833;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dev-card:hover {
+            border-color: #10b981;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-emerald {
+            background-color: #10b981;
+            color: #000000;
+            font-weight: 700;
+            border-bottom: 4px solid #059669;
+            transition: all 0.15s ease;
+        }
+        .btn-emerald:hover {
+            background-color: #34d399;
+            transform: translateY(-1px);
+        }
+        .btn-emerald:active {
+            transform: translateY(2px);
+            border-bottom-width: 1px;
+        }
+
+        .btn-wood {
+            background-color: #61432b;
+            color: #f7f2e7;
+            font-weight: 700;
+            border-bottom: 4px solid #3d281a;
+            transition: all 0.15s ease;
+        }
+        .btn-wood:hover {
+            background-color: #7a5537;
+            transform: translateY(-1px);
+        }
+        .btn-wood:active {
+            transform: translateY(2px);
+            border-bottom-width: 1px;
+        }
+
+        /* Syntax Highlighting Mock Colors */
+        .token-kw { color: #f43f5e; font-weight: 600; }
+        .token-cls { color: #38bdf8; font-weight: 600; }
+        .token-fn { color: #a78bfa; }
+        .token-str { color: #34d399; }
+        .token-cmnt { color: #71717a; font-style: italic; }
+        .token-anno { color: #fbbf24; }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.6)); }
+        }
+        .emerald-glow-anim {
+            animation: pulseGlow 3s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-emeraldGlow selection:text-black">
+
+    <!-- ========================================== -->
+    <!-- 1. HEADER & NAVIGATION BAR                -->
+    <!-- ========================================== -->
+    <header class="sticky top-0 z-50 bg-stoneDark/95 backdrop-blur-md border-b-2 border-stoneBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <a href="#home" class="flex items-center gap-3 group">
+                    <div class="w-11 h-11 rounded-xl bg-emeraldGlow text-black flex items-center justify-center text-2xl wood-border group-hover:bg-emeraldHover transition-colors emerald-glow-anim">
+                        ⛏️
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-2xl sm:text-3xl text-white tracking-wider block leading-none">
+                                ModCrafter
+                            </span>
+
+                        </div>
+                        <span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest block mt-0.5">
+                            Fan Tool for First-Time Developers
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden lg:flex items-center gap-1 xl:gap-2 text-xs font-bold uppercase tracking-wider text-stone-300">
+                    <a href="#home" class="px-3 py-2 rounded-lg hover:bg-stonePanel hover:text-emeraldGlow transition-colors">Home</a>
+                    <a href="#matrix" class="px-3 py-2 rounded-lg hover:bg-stonePanel hover:text-emeraldGlow transition-colors">Dev Environment</a>
+                    <a href="#studio" class="px-3 py-2 rounded-lg hover:bg-stonePanel hover:text-emeraldGlow transition-colors">Code Studio</a>
+                    <a href="#tooling" class="px-3 py-2 rounded-lg hover:bg-stonePanel hover:text-emeraldGlow transition-colors">API & Tools</a>
+                    <a href="#roadmap" class="px-3 py-2 rounded-lg hover:bg-stonePanel hover:text-emeraldGlow transition-colors">Dev Roadmap</a>
+                    <a href="#generator" class="px-3 py-2 rounded-lg hover:bg-stonePanel hover:text-emeraldGlow transition-colors">Mod ID Sandbox</a>
+                </nav>
+
+
+
+                <!-- Mobile Menu Hamburger Button -->
+                <div class="lg:hidden">
+                    <button id="mobile-menu-btn" type="button" class="p-2 rounded-xl text-stone-300 bg-stonePanel border border-stoneBorder hover:bg-stone-800 focus:outline-none" aria-label="Toggle Navigation">
+                        <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                        <svg id="menu-icon-close" class="hidden w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden border-b-2 border-stoneBorder bg-stoneDark px-4 pt-3 pb-6 space-y-2">
+            <a href="#home" class="block px-3 py-2 rounded-lg text-sm font-bold text-stone-200 hover:bg-stonePanel">Home</a>
+            <a href="#matrix" class="block px-3 py-2 rounded-lg text-sm font-bold text-stone-200 hover:bg-stonePanel">Dev Environment</a>
+            <a href="#studio" class="block px-3 py-2 rounded-lg text-sm font-bold text-stone-200 hover:bg-stonePanel">Code Studio</a>
+            <a href="#tooling" class="block px-3 py-2 rounded-lg text-sm font-bold text-stone-200 hover:bg-stonePanel">API & Tools</a>
+            <a href="#roadmap" class="block px-3 py-2 rounded-lg text-sm font-bold text-stone-200 hover:bg-stonePanel">Dev Roadmap</a>
+            <a href="#generator" class="block px-3 py-2 rounded-lg text-sm font-bold text-stone-200 hover:bg-stonePanel">Mod ID Sandbox</a>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+
+        <!-- ========================================== -->
+        <!-- 2. HERO SECTION                            -->
+        <!-- ========================================== -->
+        <section id="home" class="py-12 lg:py-20 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid lg:grid-cols-12 gap-10 items-center">
+                    
+                    <!-- Hero Text Content -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+
+
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight">
+                            Learn Minecraft Modding <br class="hidden sm:block">
+                            <span class="text-emeraldGlow font-pixel text-5xl sm:text-6xl lg:text-7xl block mt-1">From First Line to JAR</span>
+                        </h1>
+
+                        <p class="text-base sm:text-lg text-stone-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                            Master Java mod development for Minecraft. Explore toolchain setups, Fabric Loom & Forge Gradle matrices, registry architecture, Mixins, and event listeners.
+                        </p>
+
+                        <!-- Quick Jump Developer Actions -->
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                            <a href="#matrix" class="btn-emerald w-full sm:w-auto px-7 py-3.5 rounded-2xl font-bold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-2">
+                                <span>☕</span> Java & Loader Setup Matrix
+                            </a>
+                            <a href="#studio" class="btn-wood w-full sm:w-auto px-7 py-3.5 rounded-2xl font-bold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-2">
+                                <span>🛠️</span> Explore Code Studio
+                            </a>
+                        </div>
+
+                        <!-- Developer Badge Highlights -->
+                        <div class="pt-4 flex flex-wrap justify-center lg:justify-start gap-3 text-xs font-mono text-stone-400">
+                            <span class="bg-stonePanel border border-stoneBorder px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-emeraldGlow"></span> JDK 17 / 21
+                            </span>
+                            <span class="bg-stonePanel border border-stoneBorder px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-amber-400"></span> Mojang / Yarn Mappings
+                            </span>
+                            <span class="bg-stonePanel border border-stoneBorder px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-blue-400"></span> Deferred Register Architecture
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Code Preview Card (Hero Right) -->
+                    <div class="lg:col-span-5">
+                        <div class="rounded-2xl bg-codeBg border-2 border-stoneBorder shadow-2xl overflow-hidden font-code text-xs">
+                            <!-- Code Header Bar -->
+                            <div class="bg-codeHeader px-4 py-3 border-b border-stoneBorder flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
+                                    <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
+                                    <span class="w-3 h-3 rounded-full bg-green-500 inline-block"></span>
+                                    <span class="ml-2 font-bold text-stone-400 text-[11px]">ExampleBlockRegistry.java</span>
+                                </div>
+                                <span class="text-[10px] text-emeraldGlow bg-emeraldGlow/10 px-2 py-0.5 rounded font-mono">FORGE / NEOFORGE</span>
+                            </div>
+
+                            <!-- Live Code Lines -->
+                            <div class="p-4 sm:p-5 leading-relaxed overflow-x-auto text-stone-300">
+                                <pre><code><span class="token-kw">public class</span> <span class="token-cls">ModBlocks</span> {
+    <span class="token-kw">public static final</span> <span class="token-cls">DeferredRegister</span>&lt;<span class="token-cls">Block</span>&gt; BLOCKS = 
+        <span class="token-cls">DeferredRegister</span>.<span class="token-fn">create</span>(<span class="token-cls">ForgeRegistries</span>.BLOCKS, <span class="token-str">"examplemod"</span>);
+
+    <span class="token-cmnt">// Register a custom ruby block with iron properties</span>
+    <span class="token-kw">public static final</span> <span class="token-cls">RegistryObject</span>&lt;<span class="token-cls">Block</span>&gt; RUBY_BLOCK = 
+        BLOCKS.<span class="token-fn">register</span>(<span class="token-str">"ruby_block"</span>, () -&gt; <span class="token-kw">new</span> <span class="token-cls">Block</span>(
+            <span class="token-cls">BlockBehaviour</span>.<span class="token-cls">Properties</span>.<span class="token-fn">of</span>()
+                .<span class="token-fn">mapColor</span>(<span class="token-cls">MapColor</span>.COLOR_RED)
+                .<span class="token-fn">requiresCorrectToolForDrops</span>()
+                .<span class="token-fn">strength</span>(<span class="token-str">5.0f</span>, <span class="token-str">6.0f</span>)
+                .<span class="token-fn">sound</span>(<span class="token-cls">SoundType</span>.METAL)
+        ));
+}</code></pre>
+                            </div>
+
+                            <!-- Interactive Copy Button Footer -->
+                            <div class="bg-codeHeader px-4 py-2.5 border-t border-stoneBorder flex items-center justify-between text-[11px] text-stone-400">
+                                <span>Registry: <code>DeferredRegister&lt;Block&gt;</code></span>
+                                <button onclick="copySnippet(this, `public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, 'examplemod');`)" class="hover:text-emeraldGlow transition-colors font-mono">
+                                    [📋 Copy Snippet]
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 3. DEVELOPER MATRIX (TABLE)                -->
+        <!-- ========================================== -->
+        <section id="matrix" class="py-16 bg-stoneDark/80 border-y border-stoneBorder">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-10">
+                    <div class="text-xs font-bold text-emeraldGlow font-mono uppercase tracking-widest mb-1">Toolchain Matrix</div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-serif">Developer Environment Prerequisites</h2>
+                    <p class="text-stone-400 text-sm sm:text-base mt-2">
+                        Exact JDK, Gradle/Loom, mappings, and IDE setups required to compile Minecraft mod projects across target game versions.
+                    </p>
+                </div>
+
+                <!-- Loader Selector Tabs -->
+                <div class="flex justify-center mb-6 gap-2 flex-wrap">
+                    <button onclick="filterMatrix('all')" class="matrix-tab active-tab px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-emeraldGlow text-black transition-all">All Loaders</button>
+                    <button onclick="filterMatrix('fabric')" class="matrix-tab px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-stonePanel border border-stoneBorder text-stone-300 hover:border-emeraldGlow transition-all">Fabric Loom</button>
+                    <button onclick="filterMatrix('forge')" class="matrix-tab px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-stonePanel border border-stoneBorder text-stone-300 hover:border-emeraldGlow transition-all">Forge Gradle</button>
+                    <button onclick="filterMatrix('neoforge')" class="matrix-tab px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-stonePanel border border-stoneBorder text-stone-300 hover:border-emeraldGlow transition-all">NeoForge Gradle</button>
+                </div>
+
+                <!-- Matrix Table Card -->
+                <div class="dev-card rounded-2xl overflow-hidden wood-border">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse font-sans text-sm">
+                            <thead>
+                                <tr class="bg-stoneHeader border-b border-stoneBorder text-emeraldGlow font-pixel text-xl tracking-wider">
+                                    <th class="py-4 px-6">Minecraft Version</th>
+                                    <th class="py-4 px-6">Loader Toolchain</th>
+                                    <th class="py-4 px-6">Required JDK</th>
+                                    <th class="py-4 px-6">Mappings System</th>
+                                    <th class="py-4 px-6">Recommended IDE</th>
+                                    <th class="py-4 px-6 text-right">Dev Setup Doc</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-stoneBorder text-stone-200 bg-stonePanel/40">
+                                <!-- Row 1: 1.20.4 Fabric -->
+                                <tr class="matrix-row hover:bg-stonePanel transition-colors" data-loader="fabric">
+                                    <td class="py-4 px-6 font-mono font-bold text-white flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-emeraldGlow"></span>
+                                        1.20.4
+                                    </td>
+                                    <td class="py-4 px-6"><span class="px-2.5 py-1 rounded bg-blue-900/40 border border-blue-500/40 text-blue-300 font-mono text-xs">Fabric Loom 1.4+</span></td>
+                                    <td class="py-4 px-6 font-mono text-amber-400 font-bold">JDK 17 or JDK 21</td>
+                                    <td class="py-4 px-6">Yarn / Mojang Official</td>
+                                    <td class="py-4 px-6">IntelliJ IDEA (MinecraftDev Plugin)</td>
+                                    <td class="py-4 px-6 text-right">
+                                        <a href="https://fabricmc.net/wiki/tutorial:setup" target="_blank" rel="noopener" class="text-emeraldGlow hover:underline text-xs font-bold">Fabric Setup &rarr;</a>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 2: 1.20.4 NeoForge -->
+                                <tr class="matrix-row hover:bg-stonePanel transition-colors" data-loader="neoforge">
+                                    <td class="py-4 px-6 font-mono font-bold text-white flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-orange-400"></span>
+                                        1.20.4 / 1.20.2
+                                    </td>
+                                    <td class="py-4 px-6"><span class="px-2.5 py-1 rounded bg-orange-900/40 border border-orange-500/40 text-orange-300 font-mono text-xs">NeoGradle / ModDevGradle</span></td>
+                                    <td class="py-4 px-6 font-mono text-amber-400 font-bold">JDK 17 or JDK 21</td>
+                                    <td class="py-4 px-6">Parchment + Mojang Mappings</td>
+                                    <td class="py-4 px-6">IntelliJ IDEA / Eclipse</td>
+                                    <td class="py-4 px-6 text-right">
+                                        <a href="https://docs.neoforged.net/" target="_blank" rel="noopener" class="text-emeraldGlow hover:underline text-xs font-bold">NeoForge Setup &rarr;</a>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 3: 1.20.1 Forge -->
+                                <tr class="matrix-row hover:bg-stonePanel transition-colors" data-loader="forge">
+                                    <td class="py-4 px-6 font-mono font-bold text-white flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                                        1.20.1
+                                    </td>
+                                    <td class="py-4 px-6"><span class="px-2.5 py-1 rounded bg-amber-900/40 border border-amber-500/40 text-amber-300 font-mono text-xs">Forge Gradle 6.0+</span></td>
+                                    <td class="py-4 px-6 font-mono text-amber-400 font-bold">JDK 17</td>
+                                    <td class="py-4 px-6">Mojang Mappings / Parchment</td>
+                                    <td class="py-4 px-6">IntelliJ IDEA / VS Code</td>
+                                    <td class="py-4 px-6 text-right">
+                                        <a href="https://docs.minecraftforge.net/en/1.20.x/" target="_blank" rel="noopener" class="text-emeraldGlow hover:underline text-xs font-bold">Forge Docs &rarr;</a>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 4: 1.16.5 Forge -->
+                                <tr class="matrix-row hover:bg-stonePanel transition-colors" data-loader="forge">
+                                    <td class="py-4 px-6 font-mono font-bold text-white flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-stone-400"></span>
+                                        1.16.5 (Legacy)
+                                    </td>
+                                    <td class="py-4 px-6"><span class="px-2.5 py-1 rounded bg-stone-800 border border-stone-600 text-stone-300 font-mono text-xs">Forge Gradle 5.1</span></td>
+                                    <td class="py-4 px-6 font-mono text-stone-300 font-bold">JDK 8 or JDK 11</td>
+                                    <td class="py-4 px-6">MCP Mappings / Mojang</td>
+                                    <td class="py-4 px-6">Eclipse / IntelliJ IDEA</td>
+                                    <td class="py-4 px-6 text-right">
+                                        <a href="https://docs.minecraftforge.net/en/1.16.x/" target="_blank" rel="noopener" class="text-emeraldGlow hover:underline text-xs font-bold">Legacy Docs &rarr;</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 4. INTERACTIVE CODE STUDIO                 -->
+        <!-- ========================================== -->
+        <section id="studio" class="py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+                    <div>
+                        <div class="text-xs font-bold text-emeraldGlow font-mono uppercase tracking-widest mb-1">Architecture Reference</div>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-serif">Interactive Code Studio</h2>
+                        <p class="text-stone-400 text-sm mt-1">Study the essential Java structures used to register and build Minecraft mod elements.</p>
+                    </div>
+
+                    <!-- Loader Code Switcher Toggle -->
+                    <div class="bg-stonePanel border border-stoneBorder p-1.5 rounded-xl flex items-center gap-1 self-start md:self-auto">
+                        <button id="toggle-forge" onclick="switchCodeLoader('forge')" class="px-4 py-2 rounded-lg text-xs font-bold font-mono transition-all bg-emeraldGlow text-black">
+                            Forge / NeoForge Syntax
+                        </button>
+                        <button id="toggle-fabric" onclick="switchCodeLoader('fabric')" class="px-4 py-2 rounded-lg text-xs font-bold font-mono text-stone-400 hover:text-white transition-all">
+                            Fabric Syntax
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4 Interactive Learning Modules Grid -->
+                <div class="grid lg:grid-cols-2 gap-8">
+
+                    <!-- Module 1: Block Registration -->
+                    <div class="dev-card rounded-2xl overflow-hidden flex flex-col justify-between">
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-mono font-bold text-emeraldGlow bg-emeraldGlow/10 border border-emeraldGlow/30 px-2.5 py-1 rounded">
+                                    01. BLOCK REGISTRATION
+                                </span>
+                                <span class="text-[11px] font-mono text-stone-400">`DeferredRegister` & `Registry.register`</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">Custom Block & Properties</h3>
+                            <p class="text-stone-400 text-xs leading-relaxed mb-4">
+                                Define hardness, blast resistance, sound types, map colors, and required mining tools for block instances.
+                            </p>
+
+                            <!-- Code Block -->
+                            <div class="bg-codeBg rounded-xl border border-stoneBorder p-4 font-code text-xs overflow-x-auto text-stone-300">
+                                <pre><code id="code-block-1"><span class="token-cmnt">// Forge / NeoForge Block Definition</span>
+<span class="token-kw">public static final</span> <span class="token-cls">RegistryObject</span>&lt;<span class="token-cls">Block</span>&gt; COPPER_GEAR_BLOCK = 
+    BLOCKS.<span class="token-fn">register</span>(<span class="token-str">"copper_gear_block"</span>, () -&gt; <span class="token-kw">new</span> <span class="token-cls">Block</span>(
+        <span class="token-cls">BlockBehaviour</span>.<span class="token-cls">Properties</span>.<span class="token-fn">of</span>()
+            .<span class="token-fn">strength</span>(<span class="token-str">3.0f</span>, <span class="token-str">4.8f</span>)
+            .<span class="token-fn">sound</span>(<span class="token-cls">SoundType</span>.COPPER)
+            .<span class="token-fn">requiresCorrectToolForDrops</span>()
+    ));</code></pre>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0 flex items-center justify-between">
+                            <span class="text-[11px] text-stone-400 font-mono">Module: BlockRegistry.java</span>
+                            <button onclick="copySnippet(this, document.getElementById('code-block-1').innerText)" class="text-xs text-emeraldGlow hover:underline font-mono">
+                                [Copy Code]
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Module 2: Custom Items & Food -->
+                    <div class="dev-card rounded-2xl overflow-hidden flex flex-col justify-between">
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-mono font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-2.5 py-1 rounded">
+                                    02. ITEM PROPERTIES
+                                </span>
+                                <span class="text-[11px] font-mono text-stone-400">`Item.Properties` & `FoodProperties`</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">Custom Item & Food Properties</h3>
+                            <p class="text-stone-400 text-xs leading-relaxed mb-4">
+                                Define stack limits, rarity tiers, craft durability, and hunger/saturation restore values for custom food items.
+                            </p>
+
+                            <!-- Code Block -->
+                            <div class="bg-codeBg rounded-xl border border-stoneBorder p-4 font-code text-xs overflow-x-auto text-stone-300">
+                                <pre><code id="code-block-2"><span class="token-cmnt">// Item & Food Properties Definition</span>
+<span class="token-kw">public static final</span> <span class="token-cls">FoodProperties</span> MAGIC_APPLE_FOOD = 
+    <span class="token-kw">new</span> <span class="token-cls">FoodProperties</span>.<span class="token-cls">Builder</span>()
+        .<span class="token-fn">nutrition</span>(<span class="token-str">8</span>)
+        .<span class="token-fn">saturationMod</span>(<span class="token-str">1.2f</span>)
+        .<span class="token-fn">alwaysEat</span>()
+        .<span class="token-fn">build</span>();
+
+<span class="token-kw">public static final</span> <span class="token-cls">RegistryObject</span>&lt;<span class="token-cls">Item</span>&gt; ENCHANTED_APPLE = 
+    ITEMS.<span class="token-fn">register</span>(<span class="token-str">"magic_apple"</span>, () -&gt; <span class="token-kw">new</span> <span class="token-cls">Item</span>(
+        <span class="token-kw">new</span> <span class="token-cls">Item</span>.<span class="token-cls">Properties</span>().<span class="token-fn">food</span>(MAGIC_APPLE_FOOD).<span class="token-fn">rarity</span>(<span class="token-cls">Rarity</span>.EPIC)
+    ));</code></pre>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0 flex items-center justify-between">
+                            <span class="text-[11px] text-stone-400 font-mono">Module: ItemRegistry.java</span>
+                            <button onclick="copySnippet(this, document.getElementById('code-block-2').innerText)" class="text-xs text-emeraldGlow hover:underline font-mono">
+                                [Copy Code]
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Module 3: BlockEntities & NBT -->
+                    <div class="dev-card rounded-2xl overflow-hidden flex flex-col justify-between">
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-mono font-bold text-blue-400 bg-blue-400/10 border border-blue-400/30 px-2.5 py-1 rounded">
+                                    03. TILE ENTITIES
+                                </span>
+                                <span class="text-[11px] font-mono text-stone-400">`BlockEntity` & NBT Persistence</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">BlockEntity & Data Storage</h3>
+                            <p class="text-stone-400 text-xs leading-relaxed mb-4">
+                                Store persistent NBT state data (energy, inventory, processing timer) and execute server ticking logic.
+                            </p>
+
+                            <!-- Code Block -->
+                            <div class="bg-codeBg rounded-xl border border-stoneBorder p-4 font-code text-xs overflow-x-auto text-stone-300">
+                                <pre><code id="code-block-3"><span class="token-kw">public class</span> <span class="token-cls">GrinderBlockEntity</span> <span class="token-kw">extends</span> <span class="token-cls">BlockEntity</span> {
+    <span class="token-kw">private int</span> progress = <span class="token-str">0</span>;
+
+    <span class="token-anno">@Override</span>
+    <span class="token-kw">protected void</span> <span class="token-fn">saveAdditional</span>(<span class="token-cls">CompoundTag</span> nbt) {
+        nbt.<span class="token-fn">putInt</span>(<span class="token-str">"GrindProgress"</span>, <span class="token-kw">this</span>.progress);
+        <span class="token-kw">super</span>.<span class="token-fn">saveAdditional</span>(nbt);
+    }
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0 flex items-center justify-between">
+                            <span class="text-[11px] text-stone-400 font-mono">Module: GrinderBlockEntity.java</span>
+                            <button onclick="copySnippet(this, document.getElementById('code-block-3').innerText)" class="text-xs text-emeraldGlow hover:underline font-mono">
+                                [Copy Code]
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Module 4: Event Handlers -->
+                    <div class="dev-card rounded-2xl overflow-hidden flex flex-col justify-between">
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-mono font-bold text-purple-400 bg-purple-400/10 border border-purple-400/30 px-2.5 py-1 rounded">
+                                    04. EVENT BUS
+                                </span>
+                                <span class="text-[11px] font-mono text-stone-400">`@SubscribeEvent` & Callbacks</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">Lifecycle & Event Handlers</h3>
+                            <p class="text-stone-400 text-xs leading-relaxed mb-4">
+                                Intercept gameplay events (entity damage, block placement, player login) and hook into initialization phases.
+                            </p>
+
+                            <!-- Code Block -->
+                            <div class="bg-codeBg rounded-xl border border-stoneBorder p-4 font-code text-xs overflow-x-auto text-stone-300">
+                                <pre><code id="code-block-4"><span class="token-anno">@Mod.EventBusSubscriber</span>(modid = <span class="token-str">"examplemod"</span>)
+<span class="token-kw">public class</span> <span class="token-cls">ModEvents</span> {
+    <span class="token-anno">@SubscribeEvent</span>
+    <span class="token-kw">public static void</span> <span class="token-fn">onPlayerJoin</span>(<span class="token-cls">PlayerEvent</span>.<span class="token-cls">PlayerLoggedInEvent</span> event) {
+        <span class="token-cls">Player</span> player = event.<span class="token-fn">getEntity</span>();
+        player.<span class="token-fn">sendSystemMessage</span>(<span class="token-cls">Component</span>.<span class="token-fn">literal</span>(<span class="token-str">"Welcome Modder!"</span>));
+    }
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0 flex items-center justify-between">
+                            <span class="text-[11px] text-stone-400 font-mono">Module: ModEvents.java</span>
+                            <button onclick="copySnippet(this, document.getElementById('code-block-4').innerText)" class="text-xs text-emeraldGlow hover:underline font-mono">
+                                [Copy Code]
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 5. DEVELOPER TOOLING & API REFERENCE      -->
+        <!-- ========================================== -->
+        <section id="tooling" class="py-16 bg-stoneDark/80 border-y border-stoneBorder">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <div class="text-xs font-bold text-emeraldGlow font-mono uppercase tracking-widest mb-1">Ecosystem Tools</div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-serif">Essential Developer Tooling</h2>
+                    <p class="text-stone-400 text-sm mt-1">Core utilities, bytecode manipulation frameworks, and model editors used by professional creators.</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                    <!-- Tool 1: Mixins -->
+                    <div class="dev-card p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 flex items-center justify-center font-mono font-bold text-lg mb-4">
+                                💉
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-1">Sponge Mixins</h3>
+                            <span class="text-[10px] font-mono text-emeraldGlow uppercase tracking-wider block mb-3">Bytecode Injection</span>
+                            <p class="text-stone-400 text-xs leading-relaxed">
+                                Modify underlying Minecraft vanilla code at runtime without directly modifying the game JAR. Inject `@Inject`, `@Redirect`, and `@Overwrite`.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-stoneBorder text-right">
+                            <a href="https://github.com/SpongePowered/Mixin/wiki" target="_blank" rel="noopener" class="text-xs font-bold text-emeraldGlow hover:underline">Mixin Wiki &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Tool 2: Blockbench -->
+                    <div class="dev-card p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-400 flex items-center justify-center font-mono font-bold text-lg mb-4">
+                                🧊
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-1">Blockbench 3D</h3>
+                            <span class="text-[10px] font-mono text-emeraldGlow uppercase tracking-wider block mb-3">3D Modeling & Animation</span>
+                            <p class="text-stone-400 text-xs leading-relaxed">
+                                Create low-poly 3D models, textures, and animations. Export directly to Java block/item models (`.json`) or custom entity renderers.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-stoneBorder text-right">
+                            <a href="https://www.blockbench.net/" target="_blank" rel="noopener" class="text-xs font-bold text-emeraldGlow hover:underline">Blockbench.net &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Tool 3: Data Generators -->
+                    <div class="dev-card p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center font-mono font-bold text-lg mb-4">
+                                ⚡
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-1">Data Generators</h3>
+                            <p class="text-xs text-amber-400 font-mono mb-3">Automated JSON Generation</p>
+                            <p class="text-stone-400 text-xs leading-relaxed">
+                                Write Java code using `RecipeProvider`, `BlockStateProvider`, and `LootTableProvider` to automatically output hundreds of asset JSON files.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-stoneBorder text-right">
+                            <a href="https://docs.minecraftforge.net/en/latest/datagen/" target="_blank" rel="noopener" class="text-xs font-bold text-emeraldGlow hover:underline">Datagen Guide &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Tool 4: Parchment & Yarn -->
+                    <div class="dev-card p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-400 flex items-center justify-center font-mono font-bold text-lg mb-4">
+                                📖
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-1">Mapping Viewers</h3>
+                            <p class="text-xs text-purple-400 font-mono mb-3">Parchment, Yarn & Javadocs</p>
+                            <p class="text-stone-400 text-xs leading-relaxed">
+                                Parameter names and documentation mappings for obfuscated code. Essential for understanding raw Minecraft method parameters.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-stoneBorder text-right">
+                            <a href="https://parchmentmc.org/" target="_blank" rel="noopener" class="text-xs font-bold text-emeraldGlow hover:underline">ParchmentMC &rarr;</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 6. FIRST MOD STEP-BY-STEP ROADMAP          -->
+        <!-- ========================================== -->
+        <section id="roadmap" class="py-16">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <div class="text-xs font-bold text-emeraldGlow font-mono uppercase tracking-widest mb-1">Workflow Overview</div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-serif">Your First Mod Developer Roadmap</h2>
+                    <p class="text-stone-400 text-sm mt-1">A step-by-step workflow covering the full cycle from setup to compilation.</p>
+                </div>
+
+                <!-- Step-by-Step Vertical Steps -->
+                <div class="space-y-6">
+
+                    <!-- Step 1 -->
+                    <div class="dev-card p-6 rounded-2xl flex flex-col md:flex-row items-start gap-5">
+                        <div class="w-10 h-10 rounded-xl bg-emeraldGlow text-black font-pixel text-2xl flex items-center justify-center flex-shrink-0 wood-border">
+                            1
+                        </div>
+                        <div class="space-y-1 flex-grow">
+                            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                                JDK 17 / 21 Setup & IDE Environment
+                            </h3>
+                            <p class="text-stone-400 text-xs leading-relaxed">
+                                Download <b>Adoptium Temurin JDK 17</b> or <b>JDK 21</b>. Install IntelliJ IDEA Community Edition and configure the official <i>Minecraft Development</i> IntelliJ plugin for automatic template creation.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="dev-card p-6 rounded-2xl flex flex-col md:flex-row items-start gap-5">
+                        <div class="w-10 h-10 rounded-xl bg-emeraldGlow text-black font-pixel text-2xl flex items-center justify-center flex-shrink-0 wood-border">
+                            2
+                        </div>
+                        <div class="space-y-1 flex-grow">
+                            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                                Clone Template & Run Gradle Source Generation
+                            </h3>
+                            <p class="text-stone-400 text-xs leading-relaxed">
+                                Download the official Forge MDK or Fabric Example Mod. Open your terminal in the project directory and execute:
+                            </p>
+                            <div class="bg-codeBg border border-stoneBorder p-2.5 rounded-lg font-code text-xs text-emeraldGlow mt-2">
+                                <code>./gradlew genSources</code> (for Fabric/Forge sources decompilation)
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="dev-card p-6 rounded-2xl flex flex-col md:flex-row items-start gap-5">
+                        <div class="w-10 h-10 rounded-xl bg-emeraldGlow text-black font-pixel text-2xl flex items-center justify-center flex-shrink-0 wood-border">
+                            3
+                        </div>
+                        <div class="space-y-1 flex-grow">
+                            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                                Configure `mods.toml` or `fabric.mod.json`
+                            </h3>
+                            <p class="text-stone-400 text-xs leading-relaxed">
+                                Define metadata properties: `modId`, human-readable name, display version, license, author list, and dependency version constraints.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="dev-card p-6 rounded-2xl flex flex-col md:flex-row items-start gap-5">
+                        <div class="w-10 h-10 rounded-xl bg-emeraldGlow text-black font-pixel text-2xl flex items-center justify-center flex-shrink-0 wood-border">
+                            4
+                        </div>
+                        <div class="space-y-1 flex-grow">
+                            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                                Register Game Elements & Write Code Logic
+                            </h3>
+                            <p class="text-stone-400 text-xs leading-relaxed">
+                                Attach custom blocks, items, block entities, and event listeners to your mod's event bus or Fabric entrypoint (`ModInitializer`).
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="dev-card p-6 rounded-2xl flex flex-col md:flex-row items-start gap-5 border-emeraldGlow/40">
+                        <div class="w-10 h-10 rounded-xl bg-emeraldGlow text-black font-pixel text-2xl flex items-center justify-center flex-shrink-0 wood-border">
+                            5
+                        </div>
+                        <div class="space-y-1 flex-grow">
+                            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                                Build Mod JAR Artifact
+                            </h3>
+                            <p class="text-stone-400 text-xs leading-relaxed">
+                                Execute Gradle build command to reobfuscate and compile your final distributable `.jar` artifact located in <code>build/libs/</code>.
+                            </p>
+                            <div class="bg-codeBg border border-stoneBorder p-2.5 rounded-lg font-code text-xs text-emeraldGlow mt-2">
+                                <code>./gradlew build</code>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 7. INTERACTIVE SANDBOX TOOL                -->
+        <!-- ========================================== -->
+        <section id="generator" class="py-16 bg-stoneDark/90 border-t border-stoneBorder">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="dev-card p-8 sm:p-10 rounded-3xl emerald-border bg-stonePanel">
+                    
+                    <div class="text-center max-w-2xl mx-auto mb-8">
+
+                        <h2 class="text-3xl font-extrabold text-white font-serif">Mod ID & Boilerplate Generator</h2>
+                        <p class="text-stone-400 text-xs sm:text-sm mt-1">
+                            Validate package naming rules and generate instant java registry boilerplate code!
+                        </p>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-6 mb-6">
+                        <!-- Input 1: Mod Name -->
+                        <div>
+                            <label class="block text-xs font-mono text-emeraldGlow uppercase tracking-wider mb-2">Mod Display Name</label>
+                            <input 
+                                type="text" 
+                                id="sandbox-mod-name" 
+                                value="Aetherial Gems" 
+                                oninput="generateBoilerplate()" 
+                                placeholder="e.g. Aetherial Gems" 
+                                class="w-full p-3 rounded-xl bg-codeBg border border-stoneBorder text-white font-mono text-sm focus:border-emeraldGlow focus:outline-none"
+                            >
+                        </div>
+
+                        <!-- Input 2: Mod ID -->
+                        <div>
+                            <label class="block text-xs font-mono text-emeraldGlow uppercase tracking-wider mb-2">Mod ID (lowercase & underscores)</label>
+                            <input 
+                                type="text" 
+                                id="sandbox-mod-id" 
+                                value="aetherial_gems" 
+                                oninput="generateBoilerplate()" 
+                                placeholder="e.g. aetherial_gems" 
+                                class="w-full p-3 rounded-xl bg-codeBg border border-stoneBorder text-white font-mono text-sm focus:border-emeraldGlow focus:outline-none"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Validation Banner -->
+                    <div id="id-validation-status" class="mb-6 p-3 rounded-xl text-xs font-mono bg-emeraldGlow/10 border border-emeraldGlow/30 text-emeraldGlow flex items-center gap-2">
+                        <span>✓</span> Mod ID is valid according to Forge/Fabric naming specifications!
+                    </div>
+
+                    <!-- Output Code Card -->
+                    <div class="rounded-2xl bg-codeBg border border-stoneBorder overflow-hidden">
+                        <div class="bg-codeHeader px-4 py-2.5 border-b border-stoneBorder flex items-center justify-between text-xs text-stone-400 font-mono">
+                            <span id="output-class-name">AetherialGemsMod.java</span>
+                            <button onclick="copyGeneratedCode()" class="text-emeraldGlow hover:underline">
+                                [📋 Copy Generated Code]
+                            </button>
+                        </div>
+                        <div class="p-4 sm:p-5 font-code text-xs leading-relaxed overflow-x-auto text-stone-300">
+                            <pre><code id="generated-java-code">// Generated code will appear here...</code></pre>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========================================== -->
+    <!-- 8. FOOTER                                  -->
+    <!-- ========================================== -->
+    <footer class="bg-stoneDark text-stone-300 pt-16 pb-12 border-t-2 border-stoneBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Newsletter Block -->
+            <div class="bg-stonePanel p-8 rounded-3xl border border-stoneBorder mb-12 relative overflow-hidden">
+                <div class="max-w-2xl mx-auto text-center space-y-4">
+
+                    <h3 class="text-2xl font-bold font-serif text-white">Mod Developer Tutorial Updates</h3>
+                    <p class="text-xs text-stone-400 leading-relaxed">
+                        Receive technical developer articles, Loom/Gradle updates, and API release breakdowns in your inbox. Strictly no spam!
+                    </p>
+                    <form onsubmit="handleDevNewsletter(event)" class="flex flex-col sm:flex-row gap-2 max-w-md mx-auto pt-2">
+                        <input 
+                            type="email" 
+                            id="dev-email" 
+                            required 
+                            placeholder="developer@domain.com" 
+                            class="px-4 py-3 rounded-xl bg-codeBg text-white text-xs placeholder-stone-500 border border-stoneBorder focus:outline-none focus:border-emeraldGlow flex-grow font-mono"
+                        >
+                        <button type="submit" class="btn-emerald px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider">
+                            Subscribe
+                        </button>
+                    </form>
+                    <p id="dev-newsletter-confirm" class="hidden text-xs font-mono text-emeraldGlow pt-1">
+                        ✓ Subscribed to developer updates!
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12 text-xs">
+                <!-- Col 1: Portal Description -->
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl">⛏️</span>
+                        <span class="font-bold text-2xl text-white tracking-wider">ModCrafter</span>
+                    </div>
+                    <p class="text-stone-400 leading-relaxed">
+                        An educational developer portal dedicated to teaching Java architecture, registry mechanics, and modding toolchains for Minecraft creators.
+                    </p>
+                </div>
+
+                <!-- Col 2: Navigation -->
+                <div>
+                    <h4 class="font-bold text-xl text-emeraldGlow mb-3">Developer Quick Links</h4>
+                    <ul class="space-y-2 font-mono text-stone-400">
+                        <li><a href="#matrix" class="hover:text-emeraldGlow transition-colors">Toolchain Matrix</a></li>
+                        <li><a href="#studio" class="hover:text-emeraldGlow transition-colors">Code Reference Studio</a></li>
+                        <li><a href="#tooling" class="hover:text-emeraldGlow transition-colors">Developer Tooling</a></li>
+                        <li><a href="#generator" class="hover:text-emeraldGlow transition-colors">Mod ID Generator</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Documentation Links -->
+                <div>
+                    <h4 class="font-bold text-xl text-emeraldGlow mb-3">Official Dev Documentation</h4>
+                    <ul class="space-y-2 font-mono text-stone-400">
+                        <li><a href="https://docs.minecraftforge.net/" target="_blank" rel="noopener" class="hover:text-emeraldGlow transition-colors">Forge Documentation</a></li>
+                        <li><a href="https://fabricmc.net/wiki/" target="_blank" rel="noopener" class="hover:text-emeraldGlow transition-colors">Fabric Wiki</a></li>
+                        <li><a href="https://docs.neoforged.net/" target="_blank" rel="noopener" class="hover:text-emeraldGlow transition-colors">NeoForge Documentation</a></li>
+                        <li><a href="https://plugins.jetbrains.com/plugin/8378-minecraft-development" target="_blank" rel="noopener" class="hover:text-emeraldGlow transition-colors">MinecraftDev Plugin</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Fan Disclaimer -->
+                <div>
+                    <h4 class="font-bold text-xl text-goldAccent mb-3">Educational Disclaimer</h4>
+                    <p class="text-stone-400 leading-relaxed">
+                        ModCrafter Academy is an independent educational fan website created strictly for developer learning purposes. NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.
+                    </p>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-stoneBorder text-center text-xs text-stone-500 font-mono">
+                &copy; 2026 ModCrafter Academy. Built for Minecraft Mod Developers & Creators worldwide.
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT INTERACTIVITY                   -->
+    <!-- ========================================== -->
+    <script>
+        // Mobile Navigation Drawer Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
+
+        mobileBtn.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                iconOpen.classList.add('hidden');
+                iconClose.classList.remove('hidden');
+            } else {
+                mobileMenu.classList.add('hidden');
+                iconOpen.classList.remove('hidden');
+                iconClose.classList.add('hidden');
+            }
+        });
+
+        // Matrix Table Filter
+        function filterMatrix(loader) {
+            const rows = document.querySelectorAll('.matrix-row');
+            const tabs = document.querySelectorAll('.matrix-tab');
+
+            tabs.forEach(tab => {
+                tab.classList.remove('bg-emeraldGlow', 'text-black');
+                tab.classList.add('bg-stonePanel', 'text-stone-300');
+            });
+
+            event.target.classList.add('bg-emeraldGlow', 'text-black');
+            event.target.classList.remove('bg-stonePanel', 'text-stone-300');
+
+            rows.forEach(row => {
+                const rowLoader = row.getAttribute('data-loader');
+                if (loader === 'all' || rowLoader === loader) {
+                    row.style.display = 'table-row';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Code Studio Loader Switcher (Forge vs Fabric)
+        function switchCodeLoader(loader) {
+            const toggleForge = document.getElementById('toggle-forge');
+            const toggleFabric = document.getElementById('toggle-fabric');
+            const code1 = document.getElementById('code-block-1');
+
+            if (loader === 'fabric') {
+                toggleFabric.classList.add('bg-emeraldGlow', 'text-black');
+                toggleFabric.classList.remove('text-stone-400');
+                toggleForge.classList.remove('bg-emeraldGlow', 'text-black');
+                toggleForge.classList.add('text-stone-400');
+
+                code1.innerHTML = `<span class="token-cmnt">// Fabric Block Registration Syntax</span>
+<span class="token-kw">public static final</span> <span class="token-cls">Block</span> COPPER_GEAR_BLOCK = <span class="token-cls">Registry</span>.<span class="token-fn">register</span>(
+    <span class="token-cls">Registries</span>.BLOCK,
+    <span class="token-kw">new</span> <span class="token-cls">Identifier</span>(<span class="token-str">"examplemod"</span>, <span class="token-str">"copper_gear_block"</span>),
+    <span class="token-kw">new</span> <span class="token-cls">Block</span>(<span class="token-cls">FabricBlockSettings</span>.<span class="token-fn">create</span>().<span class="token-fn">strength</span>(<span class="token-str">3.0f</span>))
+);`;
+            } else {
+                toggleForge.classList.add('bg-emeraldGlow', 'text-black');
+                toggleForge.classList.remove('text-stone-400');
+                toggleFabric.classList.remove('bg-emeraldGlow', 'text-black');
+                toggleFabric.classList.add('text-stone-400');
+
+                code1.innerHTML = `<span class="token-cmnt">// Forge / NeoForge Block Definition</span>
+<span class="token-kw">public static final</span> <span class="token-cls">RegistryObject</span>&lt;<span class="token-cls">Block</span>&gt; COPPER_GEAR_BLOCK = 
+    BLOCKS.<span class="token-fn">register</span>(<span class="token-str">"copper_gear_block"</span>, () -&gt; <span class="token-kw">new</span> <span class="token-cls">Block</span>(
+        <span class="token-cls">BlockBehaviour</span>.<span class="token-cls">Properties</span>.<span class="token-fn">of</span>()
+            .<span class="token-fn">strength</span>(<span class="token-str">3.0f</span>, <span class="token-str">4.8f</span>)
+            .<span class="token-fn">sound</span>(<span class="token-cls">SoundType</span>.COPPER)
+            .<span class="token-fn">requiresCorrectToolForDrops</span>()
+    ));`;
+            }
+        }
+
+        // Copy Snippet Helper Function
+        function copySnippet(buttonElement, textToCopy) {
+            const originalText = buttonElement.innerText;
+            const textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            buttonElement.innerText = '[✓ Copied!]';
+            setTimeout(() => {
+                buttonElement.innerText = originalText;
+            }, 2000);
+        }
+
+        // Mod ID Sandbox Generator Logic
+        function generateBoilerplate() {
+            const modName = document.getElementById('sandbox-mod-name').value.trim() || "MyMod";
+            let modId = document.getElementById('sandbox-mod-id').value.toLowerCase().trim() || "mymod";
+            
+            // Clean mod ID to follow regex [a-z0-9_]
+            modId = modId.replace(/[^a-z0-9_]/g, '');
+
+            const statusBox = document.getElementById('id-validation-status');
+            const classTitle = document.getElementById('output-class-name');
+            const codeOutput = document.getElementById('generated-java-code');
+
+            // Format Class Name (PascalCase)
+            const pascalName = modName
+                .replace(/[^a-zA-Z0-9 ]/g, '')
+                .split(' ')
+                .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+                .join('') || "MyMod";
+
+            classTitle.innerText = `${pascalName}Mod.java`;
+
+            statusBox.className = "mb-6 p-3 rounded-xl text-xs font-mono bg-emeraldGlow/10 border border-emeraldGlow/30 text-emeraldGlow flex items-center gap-2";
+            statusBox.innerHTML = `<span>✓</span> Mod ID "<b>${modId}</b>" is valid according to specification!`;
+
+            const generatedCode = 
+`<span class="token-kw">package</span> com.developer.<span class="token-str">${modId}</span>;
+
+<span class="token-kw">import</span> net.minecraftforge.fml.common.Mod;
+<span class="token-kw">import</span> net.minecraftforge.eventbus.api.IEventBus;
+<span class="token-kw">import</span> net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+<span class="token-kw">import</span> net.minecraftforge.registries.DeferredRegister;
+<span class="token-kw">import</span> net.minecraftforge.registries.ForgeRegistries;
+
+<span class="token-anno">@Mod</span>(<span class="token-cls">${pascalName}Mod</span>.MOD_ID)
+<span class="token-kw">public class</span> <span class="token-cls">${pascalName}Mod</span> {
+    <span class="token-kw">public static final String</span> MOD_ID = <span class="token-str">"${modId}"</span>;
+
+    <span class="token-kw">public static final</span> <span class="token-cls">DeferredRegister</span>&lt;<span class="token-cls">Block</span>&gt; BLOCKS = 
+        <span class="token-cls">DeferredRegister</span>.<span class="token-fn">create</span>(<span class="token-cls">ForgeRegistries</span>.BLOCKS, MOD_ID);
+
+    <span class="token-kw">public</span> <span class="token-fn">${pascalName}Mod</span>() {
+        <span class="token-cls">IEventBus</span> modEventBus = <span class="token-cls">FMLJavaModLoadingContext</span>.<span class="token-fn">get</span>().<span class="token-fn">getModEventBus</span>();
+        BLOCKS.<span class="token-fn">register</span>(modEventBus);
+    }
+}`;
+
+            codeOutput.innerHTML = generatedCode;
+        }
+
+        // Copy Generated Code Helper
+        function copyGeneratedCode() {
+            const rawCode = document.getElementById('generated-java-code').innerText;
+            const textarea = document.createElement('textarea');
+            textarea.value = rawCode;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert("Boilerplate code copied to clipboard!");
+        }
+
+        // Developer Newsletter Handler
+        function handleDevNewsletter(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('dev-email');
+            const confirmMsg = document.getElementById('dev-newsletter-confirm');
+            if (emailInput.value) {
+                confirmMsg.classList.remove('hidden');
+                emailInput.value = '';
+                setTimeout(() => {
+                    confirmMsg.classList.add('hidden');
+                }, 4000);
+            }
+        }
+
+        // Initialize generator on page load
+        window.onload = function() {
+            generateBoilerplate();
+        }
+    </script>
+</body>
+</html>
